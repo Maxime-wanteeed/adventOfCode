@@ -27,5 +27,5 @@ log(`Solving Day #${dayToSolve}`);
         log(kleur.red(`you code must give an answer`));
         return;
     }
-    log(kleur.green(`try your luck with your daily answer : ${dailyResult}`));
+    log(kleur.green(`try your luck with this answer : ${dailyResult}`));
 })();

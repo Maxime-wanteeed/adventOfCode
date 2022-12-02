@@ -6,7 +6,7 @@ export default class ConcretePuzzle extends Puzzle {
     this.TDD = [{ input: '', output: '' }]; // fill here the value(s) provided by the daily prompt
   }
   
-  public solve(input: string): string {
+  public solve(input: string = this.dailyInput): string {
     // --- your code here ---
     return input;
   }
