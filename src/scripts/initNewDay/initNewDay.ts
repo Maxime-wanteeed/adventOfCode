@@ -10,13 +10,14 @@ import { AOC_SESSION_COOKIE } from '../../env';
  * It will create new folders under src/days/{dayNumber}
  * with the boilerplate code to build the solution, and an empty input .txt file.
  */
+
 const main = async () => {
   const limitDay = moment(new Date()).endOf('day');
   const daysToInitialize = [...Array(5)]
     .map((_, i) => i + 1)
     .filter((day: number) => moment(new Date(`December ${day}, 2022 12:00:00`)) <= limitDay);
 
-  await Promise.all(daysToInitialize.map((day: number) => {
+  await Promise.all(daysToInitialize.map(async (day: number) => {
     const basePath = 'src/days';
 
     const dayFolderExists = existsSync(`${basePath}/${day}`);
@@ -36,9 +37,9 @@ const main = async () => {
     const promptPromise = fetch(url, requestHeaders)
       .then((input: Response) => input.text())
       .then((txt: string) => {
-        const parsed = parse(txt);
+        const parsed = parse(txt, { lowerCaseTagName: true, parseNoneClosedTags: true });
         const article = parsed.querySelectorAll('article');
-        const rawTxt = article.map((e) => e.rawText).join('\n');
+        const rawTxt = article.map((e) => e.rawText).join('\n\n');
         return Promise.resolve(rawTxt);
       })
       .then((txt: string) => {
@@ -57,7 +58,7 @@ const main = async () => {
         .then((txt: string) => writeFileSync(`${newDayPath}/input.txt`, txt.trim()));
 
 
-    Promise.all([inputPromise, promptPromise]).finally(() => console.log(`day ${day} initailized !`));
+    await Promise.all([inputPromise, promptPromise]).finally(() => console.log(`day ${day} initailized !`));
 
   }));
 
