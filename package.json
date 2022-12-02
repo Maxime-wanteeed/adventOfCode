@@ -4,7 +4,7 @@
   "description": "Boilerplate workspace for advent of code puzzle",
   "main": "index.ts",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "npm run init-day && nodemon",
     "build": "rm -rf dist && tsc",
     "test": "jest",
     "start": "npm run build && node dist/index.js",
@@ -29,7 +29,9 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
+    "@types/moment": "^2.13.0",
     "kleur": "^4.1.5",
+    "moment": "^2.29.4",
     "node-html-parser": "^6.1.4"
   }
 }

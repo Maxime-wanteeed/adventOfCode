@@ -2,7 +2,7 @@ import kleur = require('kleur');
 import PuzzleFactory from './utils/PuzzleFactory';
 
 const log = (...args: unknown[]) => console.log('\t', ...args);
-console.clear();
+
 const args = process.argv.slice(2);
 const dayToSolve = args[0];
 

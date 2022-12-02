@@ -1,56 +1,67 @@
 import { existsSync, copyFileSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
 import { parse } from 'node-html-parser';
+import * as moment from 'moment';
 
 import { AOC_SESSION_COOKIE } from '../../env';
 
 /**
- * Creates the boilerplate code for a new puzzle
- * Usage: npm run init-day {dayNumber} i.e npm run 1
- * It will create a new folder under src/days/{dayNumber}
+ * Creates the boilerplate code for every puzzles that precedes the current day
+ * Usage: npm run init-day
+ * It will create new folders under src/days/{dayNumber}
  * with the boilerplate code to build the solution, and an empty input .txt file.
  */
 const main = async () => {
-  const args = process.argv.slice(2);
-  const day = args[0];
+  const limitDay = moment(new Date()).endOf('day');
+  const daysToInitialize = [...Array(5)]
+    .map((_, i) => i + 1)
+    .filter((day: number) => moment(new Date(`December ${day}, 2022 12:00:00`)) <= limitDay);
 
-  if (!day) {
-    return console.log('Please run with the day to bootstrap, i.e. npm run init-day 1');
-  }
+  await Promise.all(daysToInitialize.map((day: number) => {
+    const basePath = 'src/days';
 
-  console.log(`creating template for day ${day}`);
-  const basePath = 'src/days';
+    const dayFolderExists = existsSync(`${basePath}/${day}`);
+    dayFolderExists
+      ? console.log(`updating template for day ${day}`)
+      : console.log(`creating template for day ${day}`);
 
-  if (existsSync(`src/days/${day}`)) {
-    return console.log(`day ${day} already exists`);
-  }
+    const newDayPath = `${basePath}/${day}`;
+    const url = `https://adventofcode.com/2022/day/${day}`;
+
+    const requestHeaders = { headers: { cookie: `session=${AOC_SESSION_COOKIE}` } };
+
+    if (!dayFolderExists) {
+      mkdirSync(newDayPath);
+    }
+
+    const promptPromise = fetch(url, requestHeaders)
+      .then((input: Response) => input.text())
+      .then((txt: string) => {
+        const parsed = parse(txt);
+        const article = parsed.querySelectorAll('article');
+        const rawTxt = article.map((e) => e.rawText).join('\n');
+        return Promise.resolve(rawTxt);
+      })
+      .then((txt: string) => {
+        const puzzlePath = `${newDayPath}/Puzzle.ts`;
+
+        const template = readFileSync(`${__dirname}/Puzzle.ts.tpl`).toString();
+        const existingFile = dayFolderExists ? readFileSync(puzzlePath).toString() : '';
+
+        writeFileSync(puzzlePath, `${existingFile.split(/(?<=EOF)/)[0] || template}\n\n/*\n${txt}\n*/\n`);
+      });
+
+    const inputPromise = dayFolderExists
+      ? Promise.resolve()
+      : fetch(`${url}/input`, requestHeaders)
+        .then((input: Response) => input.text())
+        .then((txt: string) => writeFileSync(`${newDayPath}/input.txt`, txt.trim()));
 
 
-  const newDayPath = `${basePath}/${day}`;
-  const url = `https://adventofcode.com/2022/day/${day}`;
+    Promise.all([inputPromise, promptPromise]).finally(() => console.log(`day ${day} initailized !`));
 
-  const requestHeaders = { headers: { cookie: `session=${AOC_SESSION_COOKIE}` } };
+  }));
 
-  mkdirSync(newDayPath);
-  const promptPromise = fetch(url, requestHeaders)
-    .then((input: Response) => input.text())
-    .then((txt: string) => {
-      const parsed = parse(txt);
-      const article = parsed.querySelectorAll('article');
-      const rawTxt = article.map((e) => e.rawText).join('\n');
-      return Promise.resolve(rawTxt);
-    })
-    .then((txt: string) => {
-      const template = readFileSync(`${__dirname}/Puzzle.ts.tpl`).toString();
-      writeFileSync(`${newDayPath}/Puzzle.ts`, `${template}\n\n/*\n${txt}\n*/\n`);
-    });
-
-  const inputPromise = fetch(`${url}/input`, requestHeaders)
-    .then((input: Response) => input.text())
-    .then((txt: string) => writeFileSync(`${newDayPath}/input.txt`, txt.trim()));
-
-
-  Promise.all([inputPromise, promptPromise]).finally(() => console.log(`day ${day} initailized !`));
-
+  console.log(`finished initializing ${daysToInitialize.length} days`);
 };
 
 main();

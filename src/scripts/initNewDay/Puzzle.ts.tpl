@@ -11,3 +11,6 @@ export default class ConcretePuzzle extends Puzzle {
     return input;
   }
 }
+
+// do not remove the next comment, it is used to auto populate the daily prompt
+// EOF

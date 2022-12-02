@@ -33,7 +33,6 @@ npm run dev {day}
 ```
 where {day} is the day you are working on, i.e. `npm run dev 1` will run the puzzle class for day 1.
 
-TODO 
 If the specified day does not exist, the `init-day` command will be automatically executed
 
 The file for the current day will then be opened in your main code pane (see the structure below) and the standard input will be in watch mode
@@ -44,13 +43,11 @@ The only thing left for you to do is go back and pate the answer in your browser
 
 ## 🎄 Manually adding a new puzzle
 
-You can also manually generate the daily files when the new AoC puzzle is available by runing `npm run init-day {day}`
+You can also manually generate the daily files when the new AoC puzzle is available by runing `npm run init-day`
 
-replace `{day}` with the number of the advent day, i.e. `npm run init-day 2`.
+This command will create a new directory in the `days` folder  for every day preceding the current one, with the following content
 
-This command will create a new directory in the `days` folder with the following content
-
-- `Puzzle.ts`: the boilerplate class with the placeholder methods for solving both daily puzzles
+- `Puzzle.ts`: the boilerplate class with the placeholder methods for solving both daily puzzles, containing the daily prompt
 - `index.txt`: the input file containing your own daily input (if you have set your session cookie)
 
 you can access the daily input from within the Puzzle Class by accessing `this.dailyInput`
