@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs';
-import { PuzzleInterface } from './types/PuzzleInterface';
+import Puzzle from './types/AbstractPuzzle';
 import PuzzleFactory from './utils/PuzzleFactory';
 
 describe('AoC test runner', () => {
@@ -9,9 +9,8 @@ describe('AoC test runner', () => {
 
   for (const day of dirs) {
     it(`Tests day ${day}`, async () => {
-      const puzzle: PuzzleInterface = await PuzzleFactory.getPuzzle(day);
-      expect(puzzle.solveFirst()).toEqual(puzzle.getFirstExpectedResult());
-      expect(puzzle.solveSecond()).toEqual(puzzle.getSecondExpectedResult());
+      const puzzle: Puzzle = await PuzzleFactory.getPuzzle(day);
+      puzzle?.TDD?.forEach(testCase => expect(puzzle.solve(testCase.input)).toEqual(testCase.output));
     });
   }
 });

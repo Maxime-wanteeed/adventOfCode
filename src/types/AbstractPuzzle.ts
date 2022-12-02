@@ -1,14 +1,12 @@
 import { PuzzleInterface } from './PuzzleInterface';
 
 export default abstract class Puzzle implements PuzzleInterface {
-  protected input: string;
+  protected dailyInput: string;
+  public TDD: { input: string, output: unknown }[];
 
-  public async setInput(input: string) {
-    this.input = input;
+  constructor(input: string) {
+    this.dailyInput = input;
   }
 
-  public abstract solveFirst(): string;
-  public abstract getFirstExpectedResult(): string;
-  public abstract solveSecond(): string;
-  public abstract getSecondExpectedResult(): string;
+  public abstract solve(input?: string): string;
 }

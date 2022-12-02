@@ -17,73 +17,51 @@ src
 ## 🚀 Getting started
 
 install all required dependencies with `npm i`
+add a new file `evv.ts` into the `src` folder, containing the following
+```typescript
+export const AOC_SESSION_COOKIE = 'YOUR_SESSION_COOKIE';
+```
+Your session cookie can be found by going to the [AOC website](https://adventofcode.com/2022) 
+Then, using the [editThisCookie](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg?hl=fr) extenion,
+you can see and copy the `session` cookie
 
-## 🎄 Adding a new puzzle
+## 🔧 Development
 
-when the new AoC puzzle is available run `npm run init-day {day}`
+To start developping for the current day, run the following command
+```bash
+npm run dev {day}
+```
+where {day} is the day you are working on, i.e. `npm run dev 1` will run the puzzle class for day 1.
+
+TODO 
+If the specified day does not exist, the `init-day` command will be automatically executed
+
+The file for the current day will then be opened in your main code pane (see the structure below) and the standard input will be in watch mode
+
+All the tests will be run and when they all pass, your solution will be run again with the daily input
+
+The only thing left for you to do is go back and pate the answer in your browser
+
+## 🎄 Manually adding a new puzzle
+
+You can also manually generate the daily files when the new AoC puzzle is available by runing `npm run init-day {day}`
 
 replace `{day}` with the number of the advent day, i.e. `npm run init-day 2`.
 
 This command will create a new directory in the `days` folder with the following content
 
 - `Puzzle.ts`: the boilerplate class with the placeholder methods for solving both daily puzzles
-- `index.txt`: the input file where to add the puzzle input
+- `index.txt`: the input file containing your own daily input (if you have set your session cookie)
 
-The structure of the boilerplate class is the following:
-
-```typescript
-import Puzzle from '../../types/AbstractPuzzle';
-
-export default class ConcretePuzzle extends Puzzle {
-  public solveFirst(): string {
-    /*
-     *
-     * HERE GOES THE SOLUTION FOR THE FIRST PUZZLE
-     *
-     */
-    return 'day 1 solution 1';
-  }
-
-  public getFirstExpectedResult(): string {
-    /*
-     *
-     * RETURN THE EXPECTED SOLUTION FOR THE FIRST TEST INPUT
-     * USEFULL FOR TEST RUNNING
-     *
-     */
-    return 'day 1 solution 1';
-  }
-
-  public solveSecond(): string {
-    /*
-     *
-     * HERE GOES THE SOLUTION FOR THE SECOND PUZZLE
-     *
-     */
-    return 'day 1 solution 2';
-  }
-
-  public getSecondExpectedResult(): string {
-    /*
-     *
-     * RETURN THE EXPECTED SOLUTION FOR THE SECOND TEST INPUT
-     * USEFULL FOR TEST RUNNING
-     *
-     */
-    return 'day 1 solution 2';
-  }
-}
-```
-
-in each method of the class you can access the test input with `this.input`
-
-## 🔧 Development
-
-When your solution is ready, or when you want to start developing incrementally run `npm run dev {day}` where {day} is the day you are working on, i.e. `npm run dev 1` will run the puzzle class for day 1.
+you can access the daily input from within the Puzzle Class by accessing `this.dailyInput`
 
 ## 🧪 Testing
 
-You can ran test for all puzzles agains their expected output with `npm t` this will test all the solutions in the `days` folder
+You can ran test for all puzzles agains their expected output with `npm run test` this will test all the solutions in the `days` folder
+
+Note that when you run `npm run dev {day}` the same tests will be run in your console, although not through Jest's frame
+
+Also note that you can monitor your tests status if you have the `Test explorer UI` extension from your side tabs
 
 ## 🛫 Contributing
 
