@@ -20,6 +20,11 @@ const main = async () => {
   await Promise.all(daysToInitialize.map(async (day: number) => {
     const basePath = 'src/days';
 
+    if (!existsSync(`${basePath}`)) {
+      console.log(`creating days folder`);
+      mkdirSync(basePath);
+    }
+
     const dayFolderExists = existsSync(`${basePath}/${day}`);
     dayFolderExists
       ? console.log(`updating template for day ${day}`)
