@@ -1,4 +1,4 @@
-import { existsSync, copyFileSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
 import { parse } from 'node-html-parser';
 import * as moment from 'moment';
 
