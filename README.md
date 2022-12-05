@@ -33,14 +33,14 @@ npm run dev {day}
 ```
 where {day} is the day you are working on, i.e. `npm run dev 1` will run the puzzle class for day 1.
 
-If the specified day does not exist, the `init-day` command will be automatically executed
+If the specified day does not exist, the `init-day` command will be automatically executed and the missing day will be added
 
 TODO
 The file for the current day will then be opened in your main code pane (see the structure below) and the standard input will be in watch mode
 
-All the tests will be run and when they all pass, your solution will be run again with the daily input
+All the tests will be run and when they all pass, your solution will be run against the daily input
 
-The only thing left for you to do is go back and pate the answer in your browser
+The only thing left for you to do is go back and paste the answer in your browser
 
 ## 🎄 Manually adding a new puzzle
 
@@ -48,16 +48,16 @@ You can also manually generate the daily files when the new AoC puzzle is availa
 
 This command will create a new directory in the `days` folder  for every day preceding the current one, with the following content
 
-- `Puzzle.ts`: the boilerplate class with the placeholder methods for solving both daily puzzles, containing the daily prompt
+- `Puzzle.ts`: the boilerplate class with the placeholder methods for solving both daily puzzles, also containing the daily prompt
 - `index.txt`: the input file containing your own daily input (if you have set your session cookie)
 
 you can access the daily input from within the Puzzle Class by accessing `this.dailyInput`
 
 ## 🧪 Testing
 
-You can ran test for all puzzles agains their expected output with `npm run test` this will test all the solutions in the `days` folder
+You can run test for all puzzles against their expected output with `npm run test`. this will test all the solutions in the `days` folder
 
-Note that when you run `npm run dev {day}` the same tests will be run in your console, although not through Jest's frame
+Note that when you run `npm run dev {day}` the same tests will be run in your console, although not through Jest's framework
 
 Also note that you can monitor your tests status if you have the `Test explorer UI` extension from your side tabs
 
