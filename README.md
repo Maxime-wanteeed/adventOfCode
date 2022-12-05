@@ -17,12 +17,12 @@ src
 ## 🚀 Getting started
 
 install all required dependencies with `npm i`
-add a new file `evv.ts` into the `src` folder, containing the following
+add a new file `env.ts` into the `src` folder, containing the following
 ```typescript
 export const AOC_SESSION_COOKIE = 'YOUR_SESSION_COOKIE';
 ```
 Your session cookie can be found by going to the [AOC website](https://adventofcode.com/2022) 
-Then, using the [editThisCookie](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg?hl=fr) extenion,
+Then, using the [editThisCookie](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg?hl=fr) extension,
 you can see and copy the `session` cookie
 
 ## 🔧 Development
@@ -35,6 +35,7 @@ where {day} is the day you are working on, i.e. `npm run dev 1` will run the puz
 
 If the specified day does not exist, the `init-day` command will be automatically executed
 
+TODO
 The file for the current day will then be opened in your main code pane (see the structure below) and the standard input will be in watch mode
 
 All the tests will be run and when they all pass, your solution will be run again with the daily input
