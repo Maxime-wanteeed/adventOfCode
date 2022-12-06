@@ -13,7 +13,7 @@ import { AOC_SESSION_COOKIE } from '../../env';
 
 const main = async () => {
   const limitDay = moment(new Date()).endOf('day');
-  const daysToInitialize = [...Array(5)]
+  const daysToInitialize = [...Array(25)]
     .map((_, i) => i + 1)
     .filter((day: number) => moment(new Date(`December ${day}, 2022 12:00:00`)) <= limitDay);
 
@@ -63,7 +63,7 @@ const main = async () => {
         .then((txt: string) => writeFileSync(`${newDayPath}/input.txt`, txt.trim()));
 
 
-    await Promise.all([inputPromise, promptPromise]).finally(() => console.log(`day ${day} initailized !`));
+    await Promise.all([inputPromise, promptPromise]).finally(() => console.log(`day ${day} initialized !`));
 
   }));
 
