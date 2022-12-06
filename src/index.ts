@@ -18,7 +18,7 @@ log(`Solving Day #${dayToSolve}`);
     for (const { input, output } of puzzle.TDD) {
         const testResult = puzzle.solve(input);
         if (testResult !== output) {
-            log(kleur.yellow(`your code does not pass every provided tests\nexpected ${output}\nrecieved ${testResult}. please try again`));
+            log(kleur.yellow(`your code does not pass every provided tests\nexpected ${output}\nreceived ${testResult}. please try again`));
             return;
         }
     }
